@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/darkGrey"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:id="@+id/relativeCardView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/movieThumbnailImageView"
+            android:layout_width="150dp"
+            android:layout_height="210dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="poster" />
+
+        <TextView
+            android:id="@+id/movieNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="3dp"
+            android:textColor="#fff"
+            android:textSize="15sp" />
+       <!-- <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/black_overlay"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/movieNameTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginTop="10dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="3dp"
+                android:textColor="#fff"
+                android:textSize="15sp" />
+
+            <TextView xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/movieReleaseDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:fontFamily="sans-serif-thin"
+                android:textColor="#fff"
+                android:paddingStart="8dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="10dp"
+                android:textSize="10sp"
+                tools:text="Release Date" />
+        </LinearLayout>-->
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:focusableInTouchMode="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="120dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_height="250dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="15dp"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/movieThumbnailImageView"
+            android:layout_width="120dp"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/movieNameTextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="3dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="#000"
+            android:ellipsize="marquee"
+            android:textSize="13sp" />
+
+        <TextView xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/movieReleaseDateTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:fontFamily="sans-serif-thin"
+            android:paddingLeft="8dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="10dp"
+            android:textColor="#000"
+            android:textSize="10sp"
+            tools:text="Release Date" />
+
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
