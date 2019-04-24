@@ -2,17 +2,23 @@ package com.example.movieyou.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.movieyou.Adapters.AllMoviesRecyclerViewAdapter;
 import com.example.movieyou.Adapters.EndlessRecyclerViewScrollListener;
+import com.example.movieyou.Adapters.HomeMovieListRecyclerAdapter;
 import com.example.movieyou.Dependency.App;
 import com.example.movieyou.Model.Movie;
 import com.example.movieyou.Model.MovieResults;
@@ -32,154 +38,198 @@ import retrofit2.Response;
 
 public class SeeAllMoviesActivity extends AppCompatActivity {
 
-
-    @BindView(R.id.allMovieTypeText)
-    TextView allMovieType;
+    private EndlessRecyclerViewScrollListener scrollListener;
+    HomeMovieListRecyclerAdapter recyclerViewAdapter;
+    RecyclerView recyclerView;
+    String movieType;
+    ArrayList<Movie> movieArrayList;
+    @BindView(R.id.movieTypeTextView)
+    TextView movieTypeText;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
-    @BindView(R.id.allMovieListRecyclerView)
-    RecyclerView recyclerView;
-    private GridLayoutManager gridLayoutManager;
-    private AllMoviesRecyclerViewAdapter allMoviesRecyclerViewAdapter;
-    private ArrayList<Movie> movieArrayList;
     @Inject
     MovieApiService movieApiService;
-    private String movieType;
-    private EndlessRecyclerViewScrollListener scrollListener;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_see_all_movies);
+        setContentView(R.layout.see_all_content_movie);
 
         ((App) getApplication()).getComponent().inject(this);
-
         ButterKnife.bind(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+
+        Slide slide = new Slide(Gravity.BOTTOM);
+        getWindow().setEnterTransition(slide);
+        getWindow().setAllowEnterTransitionOverlap(true);
+
+
         Intent intent = getIntent();
         movieType = intent.getStringExtra("MOVIETYPE");
+        this.setTitle("");
+        movieTypeText.setText(movieType);
+        Log.i("hehe", movieType);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        allMovieType.setText(movieType);
-        //showProgress();
 
+        recyclerView = (RecyclerView) findViewById(R.id.movieListRecyclerView);
+        movieArrayList = new ArrayList<Movie>();
 
+        recyclerViewAdapter = new HomeMovieListRecyclerAdapter(this, movieArrayList);
+        recyclerView.setAdapter(recyclerViewAdapter);
 
-        loadMovies(1);
-        allMoviesRecyclerViewAdapter = new AllMoviesRecyclerViewAdapter(this, movieArrayList);
-        recyclerView.setAdapter(allMoviesRecyclerViewAdapter);
-        gridLayoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        final LinearLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(mLayoutManager);
 
-        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+        showProgress();
+        loadData(1);
+        scrollListener = new EndlessRecyclerViewScrollListener(mLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                loadMovies(page);
+                loadData(page);
             }
-        });
+
+        };
+
+        recyclerView.addOnScrollListener(scrollListener);
 
 
     }
 
-    private void loadMovies(int page) {
 
-       /* switch (movieType) {
-            case "NowPlaying":
-                movieApiService.getNowPlayingMovies(URLConstant.API_KEY, page).enqueue(new Callback<MovieResults>() {
-                    @Override
-                    public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
-                        ArrayList<Movie> movieList = response.body().getMovies();
-
-
-                        if (movieList == null) {
-                            return;
-                        }
-
-                        movieArrayList = movieList;
-                        Log.i("LOad", "onResponse: called");
-                        showData();
-                    }
-
-                    @Override
-                    public void onFailure(Call<MovieResults> call, Throwable t) {
-
-                    }
-                });
-                break;
-            case "Upcoming":
-                movieApiService.getUpcomingMovies(URLConstant.API_KEY, page).enqueue(new Callback<MovieResults>() {
-                    @Override
-                    public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
-                        ArrayList<Movie> movieList = response.body().getMovies();
-
-
-                        if (movieList == null) {
-                            return;
-                        }
-
-                        movieArrayList = movieList;
-                        allMoviesRecyclerViewAdapter.notifyDataSetChanged();
-                        showData();
-                    }
-
-                    @Override
-                    public void onFailure(Call<MovieResults> call, Throwable t) {
-
-                    }
-                });
-                break;
-            case "Popular":*/
-                movieApiService.getPopularMovies(URLConstant.API_KEY, page).enqueue(new Callback<MovieResults>() {
-                    @Override
-                    public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
-                        ArrayList<Movie> movieList = response.body().getMovies();
-
-
-                        if (movieList == null) {
-                            Log.i("LOad", "onResponse: called");
-                            return;
-
-                        }
-
-                        movieArrayList = movieList;
-                        allMoviesRecyclerViewAdapter.notifyDataSetChanged();
-                        showData();
-                    }
-
-                    @Override
-                    public void onFailure(Call<MovieResults> call, Throwable t) {
-
-                    }
-                });
-               /* break;
-            case "TopRated":
-                movieApiService.getTopRatedMovies(URLConstant.API_KEY, page).enqueue(new Callback<MovieResults>() {
-                    @Override
-                    public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
-                        ArrayList<Movie> movieList = response.body().getMovies();
-
-
-                        if (movieList == null) {
-                            return;
-                        }
-
-                        movieArrayList = movieList;
-                        allMoviesRecyclerViewAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onFailure(Call<MovieResults> call, Throwable t) {
-
-                    }
-                });
-                break;
-            default:
-        }*/
-    }
-
-    void showProgress() {
+    private void showProgress(){
         progressBar.setVisibility(View.VISIBLE);
-    }
-
-    void showData() {
+        recyclerView.setVisibility(View.INVISIBLE);
+    }private void showData(){
         progressBar.setVisibility(View.INVISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
+    private void loadData(int page) {
 
+
+        if (movieType.equals("Popular Movies")) {
+
+            movieApiService.getPopularMovies(URLConstant.API_KEY, page).enqueue(new Callback<MovieResults>() {
+                @Override
+                public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
+                    ArrayList<Movie> movieList = response.body().getMovies();
+
+
+
+                    if (movieList == null) {
+                        return;
+                    }
+                    for(Movie obj : movieList)
+                    {
+                        movieArrayList.add(obj);
+                    }
+
+                    recyclerViewAdapter.notifyDataSetChanged();
+                    showData();
+                }
+
+                @Override
+                public void onFailure(Call<MovieResults> call, Throwable t) {
+
+                }
+            });
+        } else if (movieType.equals("Now Playing")) {
+            movieApiService.getNowPlayingMovies(URLConstant.API_KEY, page).enqueue(new Callback<MovieResults>() {
+                @Override
+                public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
+                    ArrayList<Movie> movieList = response.body().getMovies();
+
+
+
+                    if (movieList == null) {
+                        return;
+                    }
+                    for(Movie obj : movieList)
+                    {
+                        movieArrayList.add(obj);
+                    }
+
+                    recyclerViewAdapter.notifyDataSetChanged();
+                    showData();
+
+                }
+
+                @Override
+                public void onFailure(Call<MovieResults> call, Throwable t) {
+
+                }
+            });
+        } else if (movieType.equals("Top Rated")) {
+            movieApiService.getTopRatedMovies(URLConstant.API_KEY, page).enqueue(new Callback<MovieResults>() {
+                @Override
+                public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
+                    ArrayList<Movie> movieList = response.body().getMovies();
+
+
+
+                    if (movieList == null) {
+                        return;
+                    }
+                    for(Movie obj : movieList)
+                    {
+                        movieArrayList.add(obj);
+                    }
+
+                    recyclerViewAdapter.notifyDataSetChanged();
+                    showData();
+
+                }
+
+                @Override
+                public void onFailure(Call<MovieResults> call, Throwable t) {
+
+                }
+            });
+        } else if (movieType.equals("Upcoming")) {
+            movieApiService.getUpcomingMovies(URLConstant.API_KEY, page).enqueue(new Callback<MovieResults>() {
+                @Override
+                public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
+                    ArrayList<Movie> movieList = response.body().getMovies();
+
+
+
+                    if (movieList == null) {
+                        return;
+                    }
+                    for(Movie obj : movieList)
+                    {
+                        movieArrayList.add(obj);
+                    }
+
+                    recyclerViewAdapter.notifyDataSetChanged();
+                    showData();
+
+                }
+
+                @Override
+                public void onFailure(Call<MovieResults> call, Throwable t) {
+
+                }
+            });
+
+        }
+
+
+    }
 }

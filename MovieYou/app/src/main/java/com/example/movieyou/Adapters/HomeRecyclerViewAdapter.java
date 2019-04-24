@@ -1,10 +1,7 @@
 package com.example.movieyou.Adapters;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,18 +49,19 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
                     holder.movieTypeTextView.setText("Popular Movies");
 
-                    holder.seeAllTextView.setOnClickListener(v -> {
-                        Intent intent = new Intent();
-                        Bundle bundle = ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle();
-                        intent.putExtra("MOVIETYPE", "Popular");
-                        intent.setClass(context, SeeAllMoviesActivity.class);
-                        context.startActivity(intent, bundle);
+                    holder.seeAllTextView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            intent.putExtra("MOVIETYPE", "Popular Movies");
+                            intent.setClass(context, SeeAllMoviesActivity.class);
+                            context.startActivity(intent);
+                        }
                     });
+
                     homeMovieListRecyclerAdapter = new HomeMovieListRecyclerAdapter(context, movieResults[position].getMovies());
                     holder.recyclerView.setAdapter(homeMovieListRecyclerAdapter);
 
-//                    mLayoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-//                    holder.recyclerView.setLayoutManager(mLayoutManager);
                     gridLayoutManager = new GridLayoutManager(context, 2);
                     holder.recyclerView.setLayoutManager(gridLayoutManager);
 
@@ -75,8 +73,12 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                     homeMovieListRecyclerAdapter = new HomeMovieListRecyclerAdapter(context, movieResults[position].getMovies());
                     holder.recyclerView.setAdapter(homeMovieListRecyclerAdapter);
 
-//                    mLayoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-//                    holder.recyclerView.setLayoutManager(mLayoutManager);
+                    holder.seeAllTextView.setOnClickListener(v -> {
+                        Intent intent = new Intent();
+                        intent.putExtra("MOVIETYPE", "Top Rated");
+                        intent.setClass(context, SeeAllMoviesActivity.class);
+                        context.startActivity(intent);
+                    });
                     gridLayoutManager = new GridLayoutManager(context, 2);
                     holder.recyclerView.setLayoutManager(gridLayoutManager);
                 }
@@ -87,8 +89,12 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                     homeMovieListRecyclerAdapter = new HomeMovieListRecyclerAdapter(context, movieResults[position].getMovies());
                     holder.recyclerView.setAdapter(homeMovieListRecyclerAdapter);
 
-//                    mLayoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-//                    holder.recyclerView.setLayoutManager(mLayoutManager);
+                    holder.seeAllTextView.setOnClickListener(v -> {
+                        Intent intent = new Intent();
+                        intent.putExtra("MOVIETYPE", "Now Playing");
+                        intent.setClass(context, SeeAllMoviesActivity.class);
+                        context.startActivity(intent);
+                    });
                     gridLayoutManager = new GridLayoutManager(context, 2);
                     holder.recyclerView.setLayoutManager(gridLayoutManager);
                 }
@@ -99,8 +105,13 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
                     homeMovieListRecyclerAdapter = new HomeMovieListRecyclerAdapter(context, movieResults[position].getMovies());
                     holder.recyclerView.setAdapter(homeMovieListRecyclerAdapter);
 
-//                    mLayoutManager = new LinearLayoutManager(context, RecyclerView.HORIZONTAL, false);
-//                    holder.recyclerView.setLayoutManager(mLayoutManager);
+                    holder.seeAllTextView.setOnClickListener(v -> {
+                        Intent intent = new Intent();
+                        intent.putExtra("MOVIETYPE", "Upcoming");
+                        intent.setClass(context, SeeAllMoviesActivity.class);
+                        context.startActivity(intent);
+                    });
+
                     gridLayoutManager = new GridLayoutManager(context, 2);
                     holder.recyclerView.setLayoutManager(gridLayoutManager);
                 }
