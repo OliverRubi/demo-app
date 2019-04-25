@@ -35,18 +35,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/movieTypeTextView" />
 
-    <TextView
-        android:id="@+id/seeAllTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/movieListRecyclerView"
-        android:layout_alignParentRight="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
-        android:text="See all >" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movieListRecyclerView"
         android:layout_width="wrap_content"
@@ -64,7 +52,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@id/seeAllTextView"
+        android:layout_below="@id/movieListRecyclerView"
         android:layout_marginTop="20dp"
         android:background="#7DDDDDDD" />
 

@@ -116,6 +116,7 @@ public class SeeAllMoviesActivity extends AppCompatActivity {
     private void showProgress(){
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.INVISIBLE);
+
     }private void showData(){
         progressBar.setVisibility(View.INVISIBLE);
         recyclerView.setVisibility(View.VISIBLE);
