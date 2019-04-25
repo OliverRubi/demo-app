@@ -42,7 +42,16 @@ public class HomeMovieListRecyclerAdapter extends RecyclerView.Adapter<HomeMovie
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         if (movies != null) {
-
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Intent intent = new Intent(context, AboutMovieActivity.class);
+//                    Bundle bundle = new Bundle();
+//                    intent.setClass(context, AboutMovieActivity.class);
+//                    intent.putExtra("MovieID", movies.get(position).getId());
+//                    context.startActivity(intent, bundle);
+                }
+            });
             if(movies.get(position).getTitle().length() >= 25) {
                 String title = movies.get(position).getTitle().substring(0, 25) + "...";
                 holder.movieTitle.setText(title);

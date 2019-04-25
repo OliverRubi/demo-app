@@ -113,14 +113,17 @@ public class SeeAllMoviesActivity extends AppCompatActivity {
     }
 
 
-    private void showProgress(){
+    private void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.INVISIBLE);
 
-    }private void showData(){
+    }
+
+    private void showData() {
         progressBar.setVisibility(View.INVISIBLE);
         recyclerView.setVisibility(View.VISIBLE);
     }
+
     private void loadData(int page) {
 
 
@@ -132,12 +135,10 @@ public class SeeAllMoviesActivity extends AppCompatActivity {
                     ArrayList<Movie> movieList = response.body().getMovies();
 
 
-
                     if (movieList == null) {
                         return;
                     }
-                    for(Movie obj : movieList)
-                    {
+                    for (Movie obj : movieList) {
                         movieArrayList.add(obj);
                     }
 
@@ -157,12 +158,10 @@ public class SeeAllMoviesActivity extends AppCompatActivity {
                     ArrayList<Movie> movieList = response.body().getMovies();
 
 
-
                     if (movieList == null) {
                         return;
                     }
-                    for(Movie obj : movieList)
-                    {
+                    for (Movie obj : movieList) {
                         movieArrayList.add(obj);
                     }
 
@@ -183,12 +182,10 @@ public class SeeAllMoviesActivity extends AppCompatActivity {
                     ArrayList<Movie> movieList = response.body().getMovies();
 
 
-
                     if (movieList == null) {
                         return;
                     }
-                    for(Movie obj : movieList)
-                    {
+                    for (Movie obj : movieList) {
                         movieArrayList.add(obj);
                     }
 
@@ -209,12 +206,10 @@ public class SeeAllMoviesActivity extends AppCompatActivity {
                     ArrayList<Movie> movieList = response.body().getMovies();
 
 
-
                     if (movieList == null) {
                         return;
                     }
-                    for(Movie obj : movieList)
-                    {
+                    for (Movie obj : movieList) {
                         movieArrayList.add(obj);
                     }
 
