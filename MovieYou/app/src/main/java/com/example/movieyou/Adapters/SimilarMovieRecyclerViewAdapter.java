@@ -24,22 +24,22 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HomeMovieListRecyclerAdapter extends RecyclerView.Adapter<HomeMovieListRecyclerAdapter.MyViewHolder> {
-    private Context context;
-    private ArrayList<Movie> movies;
+public class SimilarMovieRecyclerViewAdapter extends RecyclerView.Adapter<SimilarMovieRecyclerViewAdapter.MyViewHolder> {
 
-    public HomeMovieListRecyclerAdapter(Context context, ArrayList<Movie> movies) {
+
+    ArrayList<Movie> similarMovies;
+    Context context;
+
+    public SimilarMovieRecyclerViewAdapter(ArrayList<Movie> similarMovies, Context context) {
+        this.similarMovies = similarMovies;
         this.context = context;
-        this.movies = movies;
     }
 
-
-    @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.card_item, parent, false);
 
-        return new MyViewHolder(view);
+        return  new MyViewHolder(view);
     }
 
     @Override
@@ -48,39 +48,36 @@ public class HomeMovieListRecyclerAdapter extends RecyclerView.Adapter<HomeMovie
             Intent intent = new Intent(context, AboutMovie.class);
             Bundle bundle = new Bundle();
             intent.setClass(context, AboutMovie.class);
-            intent.putExtra("movie_id", movies.get(position).getId());
-            intent.putExtra("movie_name", movies.get(position).getTitle());
-            intent.putExtra("poster_path", movies.get(position).getPosterPath());
-            intent.putExtra("banner_path", movies.get(position).getBackdropPath());
-            intent.putExtra("genres", movies.get(position).getGenreIds());
+            intent.putExtra("movie_id", similarMovies.get(position).getId());
+            intent.putExtra("movie_name", similarMovies.get(position).getTitle());
+            intent.putExtra("poster_path", similarMovies.get(position).getPosterPath());
+            intent.putExtra("banner_path", similarMovies.get(position).getBackdropPath());
+            intent.putExtra("genres", similarMovies.get(position).getGenreIds());
             context.startActivity(intent, bundle);
 
         });
-        if (movies != null) {
+        if (similarMovies != null) {
 
-            if(movies.get(position).getTitle().length() >= 25) {
-                String title = movies.get(position).getTitle().substring(0, 25) + "...";
+            if(similarMovies.get(position).getTitle().length() >= 25) {
+                String title = similarMovies.get(position).getTitle().substring(0, 25) + "...";
                 holder.movieTitle.setText(title);
             }else{
-                holder.movieTitle.setText(movies.get(position).getTitle());
+                holder.movieTitle.setText(similarMovies.get(position).getTitle());
             }
-            Picasso.with(context).load(URLConstant.IMAGE_POSTER_BASE_URL + movies.get(position).getPosterPath()).into(holder.thumbnailPoster);
-            if (movies.get(position).getReleaseDate().length() >= 5) {
-                String date = movies.get(position).getReleaseDate().substring(0, 4);
+            Picasso.with(context).load(URLConstant.IMAGE_POSTER_BASE_URL + similarMovies.get(position).getPosterPath()).into(holder.thumbnailPoster);
+            if (similarMovies.get(position).getReleaseDate().length() >= 5) {
+                String date = similarMovies.get(position).getReleaseDate().substring(0, 4);
                 holder.releaseDate.setText(date);
             }
         }
     }
 
-
     @Override
     public int getItemCount() {
-        return movies.size();
+        return similarMovies.size();
     }
 
-
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.cardView)
         CardView cardView;
         @BindView(R.id.movieThumbnailImageView)

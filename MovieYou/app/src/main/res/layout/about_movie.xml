@@ -1,45 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/aboutCotainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </androidx.viewpager.widget.ViewPager>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
-            android:fitsSystemWindows="true">
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="230dp">
+
                 <ImageView
+                    android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:fitsSystemWindows="true"/>
+                    android:background="#000"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -48,16 +45,17 @@
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="175dp"
+                    android:layout_marginTop="200dp"
                     android:layout_marginBottom="15dp"
                     android:elevation="4dp"
                     app:cardCornerRadius="10dp">
 
                     <ImageView
-                        android:id="@+id/posterWithBannerImageView"
+                        android:id="@+id/thumbnail"
 
                         android:layout_width="100dp"
                         android:layout_height="155dp"
@@ -68,21 +66,23 @@
 
                 <TextView
                     android:id="@+id/nameTextView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/cardView"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center"
+                    android:layout_toRightOf="@id/cardView"
+                    android:layout_marginLeft="10dp"
+                    tools:text="Title"
+                    android:layout_marginTop="250dp"
+                    android:gravity="left"
                     android:textColor="@android:color/white"
                     android:textSize="22dp"
                     android:textStyle="bold" />
 
                 <LinearLayout
+                    android:id="@+id/datetime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/datetime"
                     android:layout_below="@id/nameTextView"
-                    android:layout_centerHorizontal="true"
+                    android:layout_alignLeft="@id/nameTextView"
                     android:gravity="bottom"
                     android:orientation="horizontal">
 
@@ -90,16 +90,17 @@
                         android:id="@+id/releaseDateTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-thin"
+                        android:fontFamily="sans-serif"
                         android:textColor="@android:color/white"
                         android:textSize="10sp"
-                        tools:text="2019" />
+                        tools:text="2019"
+                        android:layout_marginRight="15dp"/>
 
                     <TextView
                         android:id="@+id/runTimeTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-thin"
+                        android:fontFamily="sans-serif"
                         android:textColor="@android:color/white"
                         android:textSize="10sp"
                         tools:text="1hr 29 min" />
@@ -111,30 +112,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/datetime"
-                    android:layout_centerHorizontal="true"
+                    android:layout_alignLeft="@id/nameTextView"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="20dp"
                     android:textColor="@android:color/white" />
 
-                <TextView
-                    android:id="@+id/ratingTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/genreTextView"
-                    android:layout_marginTop="3dp"
-                    android:layout_centerHorizontal="true"
-                    android:drawablePadding="3dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:textColor="#fff"
-                    android:textSize="15sp" />
+
             </RelativeLayout>
 
 
-
             <androidx.appcompat.widget.Toolbar
+                android:background="@drawable/black_overlay"
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-                app:layout_collapseMode="pin" >
+                app:layout_collapseMode="pin">
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -142,6 +135,14 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/aboutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+    </androidx.core.widget.NestedScrollView>
 
 
 

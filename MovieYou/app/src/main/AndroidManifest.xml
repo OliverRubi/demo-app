@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".ui.SeeAllMoviesActivity"/>
         <activity android:name=".ui.AboutMovie"/>
+        <activity android:name=".ui.SeeAllSimilarMovies"/>
+        <activity android:name=".ui.SearchActivity"/>
     </application>
 
 </manifest>

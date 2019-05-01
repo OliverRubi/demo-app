@@ -4,6 +4,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/grad_back"
     android:defaultFocusHighlightEnabled="false"
     android:paddingTop="20dp">
 
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolBar"
         android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
         android:layout_marginTop="5dp"
         android:fontFamily="sans-serif"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"

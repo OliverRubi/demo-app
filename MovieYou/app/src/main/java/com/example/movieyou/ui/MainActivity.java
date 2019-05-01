@@ -1,5 +1,6 @@
 package com.example.movieyou.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -8,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieyou.Fragments.Home.HomeFragment;
 import com.example.movieyou.Fragments.MoreFragment;
-import com.example.movieyou.Fragments.SearchFragment;
 import com.example.movieyou.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     private static final String TAG = "MainActivity";
+
 
 
     @BindView(R.id.bottomNavigationView) BottomNavigationView bottomNavigationView;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -41,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
                 return true;
             case R.id.search_menu:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, new SearchFragment()).commit();
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.more_menu:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, new MoreFragment()).commit();
