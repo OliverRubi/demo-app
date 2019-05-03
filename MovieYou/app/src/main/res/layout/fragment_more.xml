@@ -31,10 +31,7 @@
         android:layout_marginEnd="8dp"
         android:gravity="center_horizontal"
         android:paddingHorizontal="10dp"
-        android:text="This mobile demo application is developed during my internship under the company, MoneyMe. It uses
-                an open API from themoviedb.org and other 3rd party libraries to compose a basic movie catalogue app.
-                Some features of the app are subject to change and improvements but on the other hand, this app serves a
-                stepping stone for my development journey"
+        android:text="@string/about"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
